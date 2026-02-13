@@ -2,9 +2,10 @@
 
 A high-performance particle fluid simulation using WebGPU compute shaders. This project demonstrates heterogeneous computing with 10,000 particles rendered in real-time with physics simulation, mouse interaction, and visual trail effects.
 
-![WebGPU Particle Simulation](https://img.shields.io/badge/WebGPU-Enabled-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![WebGPU](https://img.shields.io/badge/WebGPU-Enabled-005A9C?logo=webgpu&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
 
 ## Features
 
