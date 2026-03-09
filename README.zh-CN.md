@@ -4,7 +4,7 @@
 ![WebGPU](https://img.shields.io/badge/WebGPU-Enabled-005A9C?logo=webgpu&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?logo=typescript&logoColor=white)
 
-简体中文 | [English](README.md)
+[English](README.md) | 简体中文
 
 使用 WebGPU 计算着色器的高性能粒子流体仿真。10,000 个粒子实时渲染，带物理仿真、鼠标交互和视觉拖尾效果。
 
