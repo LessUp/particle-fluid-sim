@@ -5,41 +5,87 @@ title: Particle Fluid Simulation
 
 # WebGPU Particle Fluid Simulation
 
-10K 粒子实时流体仿真 — 基于 WebGPU Compute Shader，支持拖尾效果和实时交互。
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![WebGPU](https://img.shields.io/badge/WebGPU-Enabled-005A9C?logo=webgpu&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
 
-## 核心特性
+A high-performance particle fluid simulation running **10,000 particles in real-time** using WebGPU compute shaders. Features physics simulation with gravity and mouse interaction, velocity-based color mapping, and visual trail effects — all computed on the GPU.
 
-- **WebGPU Compute Shader** — GPU 并行粒子物理计算
-- **SPH 流体模拟** — Smoothed Particle Hydrodynamics 算法
-- **拖尾效果** — 粒子运动轨迹可视化
-- **实时交互** — 鼠标吸引/排斥粒子
-- **参数可调** — 粘度、密度、重力等参数实时调节
+## Key Features
 
-## 快速开始
+- **GPU Compute Physics** — All particle simulation runs in WebGPU compute shaders (WGSL)
+- **Mouse Interaction** — Particles are repelled by cursor movement in real-time
+- **Visual Trail Effects** — Motion trails rendered via a separate trail shader pass
+- **Velocity-Based Coloring** — Dynamic color gradients reflect particle speed
+- **Responsive Fullscreen** — Adapts to any window size automatically
+- **Property-Based Testing** — Correctness verified with [fast-check](https://github.com/dubzzz/fast-check)
 
-```bash
-# 安装依赖
-npm install
+## Architecture
 
-# 启动开发服务器
-npm run dev
+The simulation uses a **heterogeneous computing model** — the CPU handles initialization and event coordination while the GPU performs all physics and rendering:
 
-# 构建
-npm run build
+```
+┌─────────────────────────────────────────────────────────┐
+│                    CPU  (TypeScript)                     │
+│  Init WebGPU  ·  Mouse Events  ·  Render Loop  ·  Data │
+└──────────────────────────┬──────────────────────────────┘
+                           │
+┌──────────────────────────▼──────────────────────────────┐
+│                    GPU  (WGSL)                           │
+│  ┌───────────────────┐    ┌───────────────────────────┐ │
+│  │   Compute Pass    │    │      Render Pass          │ │
+│  │  Gravity          │    │  Vertex + Fragment Shader │ │
+│  │  Repulsion        │    │  Trail Effect + Blending  │ │
+│  │  Boundary Bounce  │    │                           │ │
+│  └───────────────────┘    └───────────────────────────┘ │
+└─────────────────────────────────────────────────────────┘
 ```
 
-> 需要支持 WebGPU 的浏览器（Chrome 113+, Edge 113+）。
+## Quick Start
 
-## 技术栈
+```bash
+npm install
+npm run dev
+# Open http://localhost:5173 in a WebGPU-enabled browser
+```
 
-| 类别 | 技术 |
-|------|------|
+> **Requires** WebGPU support: Chrome 113+, Edge 113+, Safari 18+.
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm test` | Run property-based tests |
+| `npm run test:coverage` | Coverage report |
+| `npm run lint` | ESLint check |
+| `npm run typecheck` | TypeScript type check |
+
+## Testing
+
+Correctness properties verified via fast-check:
+
+| Property | What It Verifies |
+|----------|-----------------|
+| Initialization bounds | All particles spawn within canvas |
+| Physics update | Gravity, velocity, position integration |
+| Boundary bounce | Particles reflect correctly at edges |
+| Repulsion force | Mouse repulsion direction and magnitude |
+| Color mapping | Velocity → color gradient is monotonic |
+
+## Tech Stack
+
+| Category | Technology |
+|----------|------------|
 | GPU | WebGPU + WGSL |
-| 语言 | TypeScript |
-| 构建 | Vite |
-| 渲染 | Canvas 2D / WebGPU |
+| Language | TypeScript 5.6 |
+| Build | Vite 5 |
+| Rendering | WebGPU render pipeline + Canvas |
+| Testing | Vitest + fast-check |
+| Linting | ESLint + Prettier |
 
-## 链接
+---
 
-- [GitHub 仓库](https://github.com/LessUp/particle-fluid-sim)
-- [README](README.md)
+[View on GitHub](https://github.com/LessUp/particle-fluid-sim) · [README](README.md)
