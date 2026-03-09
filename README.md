@@ -1,5 +1,7 @@
 # WebGPU Particle Fluid Simulation
 
+English | [简体中文](README.zh-CN.md)
+
 A high-performance particle fluid simulation using WebGPU compute shaders. This project demonstrates heterogeneous computing with 10,000 particles rendered in real-time with physics simulation, mouse interaction, and visual trail effects.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
