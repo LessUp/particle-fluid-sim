@@ -12,6 +12,7 @@ export class Renderer {
   private onFrame?: () => void;
   private animationId: number | null = null;
   private isRunning = false;
+  private lastFrameTime = 0;
 
   constructor(
     ctx: WebGPUContext,
@@ -33,7 +34,8 @@ export class Renderer {
   start(): void {
     if (this.isRunning) return;
     this.isRunning = true;
-    this.loop();
+    this.lastFrameTime = 0;
+    this.animationId = requestAnimationFrame(this.loop);
   }
 
   /**
@@ -50,10 +52,16 @@ export class Renderer {
   /**
    * Main render loop
    */
-  private loop = (): void => {
+  private loop = (timestamp: number): void => {
     if (!this.isRunning) return;
 
-    this.render();
+    // Calculate deltaTime in seconds, capped to prevent spiral of death
+    const dt = this.lastFrameTime === 0
+      ? 1.0 / 60.0
+      : Math.min((timestamp - this.lastFrameTime) / 1000.0, 0.05);
+    this.lastFrameTime = timestamp;
+
+    this.render(dt);
     this.onFrame?.();
     this.animationId = requestAnimationFrame(this.loop);
   };
@@ -61,12 +69,12 @@ export class Renderer {
   /**
    * Render a single frame
    */
-  private render(): void {
+  private render(deltaTime: number): void {
     const { device, context, canvas } = this.ctx;
     const { computePipeline, renderPipeline, trailPipeline, computeBindGroup, renderBindGroup } =
       this.pipelines;
 
-    // Update uniforms with current canvas size and mouse position
+    // Update uniforms with current canvas size, mouse position, and deltaTime
     const mousePos = this.getMousePosition();
     updateUniformBuffer(
       device,
@@ -74,7 +82,8 @@ export class Renderer {
       canvas.width,
       canvas.height,
       mousePos.x,
-      mousePos.y
+      mousePos.y,
+      deltaTime
     );
 
     // Get current texture to render to

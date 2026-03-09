@@ -43,7 +43,7 @@ export function createParticleBuffer(
  */
 export function createUniformBuffer(device: GPUDevice): GPUBuffer {
   return device.createBuffer({
-    size: 16, // 4 floats: width, height, mouseX, mouseY
+    size: 32, // 8 floats: width, height, mouseX, mouseY, deltaTime, pad*3
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
   });
 }
@@ -57,9 +57,10 @@ export function updateUniformBuffer(
   width: number,
   height: number,
   mouseX: number,
-  mouseY: number
+  mouseY: number,
+  deltaTime: number = 1.0 / 60.0
 ): void {
-  const data = new Float32Array([width, height, mouseX, mouseY]);
+  const data = new Float32Array([width, height, mouseX, mouseY, deltaTime, 0, 0, 0]);
   device.queue.writeBuffer(buffer, 0, data);
 }
 

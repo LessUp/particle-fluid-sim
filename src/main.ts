@@ -117,15 +117,16 @@ async function main(): Promise<void> {
       fpsCounter.update
     );
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
+    // Handle window resize (single handler, no duplicates)
+    const handleResize = () => {
       setupCanvas(canvas);
       ctx.context.configure({
         device: ctx.device,
         format: ctx.format,
         alphaMode: 'premultiplied',
       });
-    });
+    };
+    window.addEventListener('resize', handleResize);
 
     // Start render loop
     console.log('Starting render loop...');

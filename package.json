@@ -1,7 +1,7 @@
 {
   "name": "webgpu-particle-fluid-sim",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "description": "High-performance WebGPU particle fluid simulation with compute shaders",
   "author": "",

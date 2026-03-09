@@ -12,12 +12,16 @@ export interface Vec2 {
   y: number;
 }
 
-// Uniform data structure
+// Uniform data structure (must match WGSL Uniforms struct layout)
 export interface Uniforms {
   width: number;
   height: number;
   mouseX: number;
   mouseY: number;
+  deltaTime: number;
+  _pad1: number;  // padding to 16-byte alignment
+  _pad2: number;
+  _pad3: number;
 }
 
 // WebGPU context after initialization

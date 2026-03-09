@@ -70,16 +70,11 @@ export async function initWebGPU(canvas: HTMLCanvasElement): Promise<WebGPUConte
 }
 
 /**
- * Setup canvas for fullscreen and handle resize
+ * Set canvas to current window size (call on init and on resize)
  */
 export function setupCanvas(canvas: HTMLCanvasElement): void {
-  const resize = () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  };
-  
-  resize();
-  window.addEventListener('resize', resize);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
 
 /**

@@ -36,6 +36,7 @@ export function createMouseHandler(canvas: HTMLCanvasElement): {
   };
 
   const handleTouchMove = (event: TouchEvent) => {
+    event.preventDefault(); // Prevent page scrolling when interacting with canvas
     if (event.touches.length > 0) {
       const touch = event.touches[0];
       const rect = canvas.getBoundingClientRect();
@@ -54,7 +55,7 @@ export function createMouseHandler(canvas: HTMLCanvasElement): {
   // Add event listeners
   canvas.addEventListener('mousemove', handleMouseMove);
   canvas.addEventListener('mouseleave', handleMouseLeave);
-  canvas.addEventListener('touchmove', handleTouchMove);
+  canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
   canvas.addEventListener('touchend', handleTouchEnd);
 
   return {
