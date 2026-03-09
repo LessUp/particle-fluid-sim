@@ -4,8 +4,9 @@ on:
   push:
     branches: [main]
     paths:
+      - 'index.md'
       - '*.md'
-      - 'docs/**'
+      - 'changelog/**'
       - '_config.yml'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -28,9 +29,11 @@ jobs:
         with:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
-            *.md
+            index.md
+            README.md
+            README.zh-CN.md
+            CONTRIBUTING.md
             _config.yml
-            docs
             changelog
             LICENSE
 

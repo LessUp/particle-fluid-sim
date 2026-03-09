@@ -31,3 +31,9 @@ npm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# Cache
+.cache/
+
+# Test
+.vitest/

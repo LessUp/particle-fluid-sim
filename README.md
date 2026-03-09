@@ -4,10 +4,12 @@ English | [简体中文](README.zh-CN.md)
 
 A high-performance particle fluid simulation using WebGPU compute shaders. This project demonstrates heterogeneous computing with 10,000 particles rendered in real-time with physics simulation, mouse interaction, and visual trail effects.
 
+[![CI](https://github.com/LessUp/particle-fluid-sim/actions/workflows/ci.yml/badge.svg)](https://github.com/LessUp/particle-fluid-sim/actions/workflows/ci.yml)
+[![Pages](https://github.com/LessUp/particle-fluid-sim/actions/workflows/pages.yml/badge.svg)](https://github.com/LessUp/particle-fluid-sim/actions/workflows/pages.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![WebGPU](https://img.shields.io/badge/WebGPU-Enabled-005A9C?logo=webgpu&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)
 
 ## Features
 
@@ -21,7 +23,7 @@ A high-performance particle fluid simulation using WebGPU compute shaders. This 
 ## Requirements
 
 - Node.js 18+
-- A browser with WebGPU support (Chrome 113+, Edge 113+)
+- A browser with WebGPU support (Chrome 113+, Edge 113+, Safari 17+)
 
 ## Quick Start
 
@@ -109,11 +111,11 @@ The simulation uses a heterogeneous computing model:
 
 The project uses property-based testing with [fast-check](https://github.com/dubzzz/fast-check) to verify correctness properties:
 
-- **Property 2**: Particle initialization bounds
-- **Property 3**: Physics update correctness
-- **Property 4**: Boundary bounce behavior
-- **Property 5**: Repulsion force application
-- **Property 6**: Velocity-based color mapping
+- **Initialization bounds** — All particles spawn within canvas dimensions
+- **Physics update** — Gravity, velocity, and position integration correctness
+- **Boundary bounce** — Particles reflect correctly at canvas edges
+- **Repulsion force** — Mouse repulsion direction and magnitude
+- **Color mapping** — Velocity → color gradient is monotonic
 
 Run tests:
 
@@ -152,4 +154,4 @@ WebGPU is required. Check [caniuse.com/webgpu](https://caniuse.com/webgpu) for c
 
 ## License
 
-MIT
+MIT — [Project Page](https://lessup.github.io/particle-fluid-sim/)
