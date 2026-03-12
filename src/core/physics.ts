@@ -95,8 +95,8 @@ export function updateParticle(
   vy += repulsion.y;
 
   // 3. Update position
-  let x = particle.x + vx;
-  let y = particle.y + vy;
+  const x = particle.x + vx;
+  const y = particle.y + vy;
 
   // 4. Apply boundary bounce
   const bounced = applyBoundaryBounce(
